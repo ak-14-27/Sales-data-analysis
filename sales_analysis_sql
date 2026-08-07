@@ -1,0 +1,125 @@
+-- =====================================================
+-- SALES DATA ANALYSIS PROJECT
+-- Dataset: Superstore
+-- Tool: PostgreSQL
+-- =====================================================
+-- 1. Total Sales
+SELECT
+  SUM(sales) AS total_sales
+FROM
+  orders;
+
+-- 2. Total Profit
+SELECT
+  SUM(profit) AS total_profit
+FROM
+  orders;
+
+-- 3. Sales by Category
+SELECT
+  category,
+  SUM(sales) AS total_sales
+FROM
+  orders
+GROUP BY
+  category
+ORDER BY
+  total_sales DESC;
+
+-- 4. Profit by Category
+SELECT
+  category,
+  SUM(profit) AS total_profit
+FROM
+  orders
+GROUP BY
+  category
+ORDER BY
+  total_profit DESC;
+
+-- 5. Sales by Region
+SELECT
+  region,
+  SUM(sales) AS total_sales
+FROM
+  orders
+GROUP BY
+  region
+ORDER BY
+  total_sales DESC;
+
+-- 6. Profit by Region
+SELECT
+  region,
+  SUM(profit) AS total_profit
+FROM
+  orders
+GROUP BY
+  region
+ORDER BY
+  total_profit DESC;
+
+-- 7. Monthly Sales Trend
+SELECT
+  TO_CHAR (order_date, 'YYYY-MM') AS month,
+  SUM(sales) AS total_sales
+FROM
+  orders
+GROUP BY
+  month
+ORDER BY
+  month;
+
+-- 8. Most Profitable Month
+SELECT
+  TO_CHAR (order_date, 'YYYY-MM') AS month,
+  SUM(profit) AS total_profit
+FROM
+  orders
+GROUP BY
+  month
+ORDER BY
+  total_profit DESC
+LIMIT
+  1;
+
+-- 9. Most Profitable Region-Month Combination
+SELECT
+  region,
+  TO_CHAR (order_date, 'YYYY-MM') AS month,
+  SUM(profit) AS total_profit
+FROM
+  orders
+GROUP BY
+  region,
+  month
+ORDER BY
+  total_profit DESC
+LIMIT
+  1;
+
+-- 10. Profit Margin by Category
+SELECT
+  category,
+  SUM(sales) AS total_sales,
+  SUM(profit) AS total_profit,
+  ROUND(SUM(profit) / SUM(sales) * 100, 2) AS profit_margin_pct
+FROM
+  orders
+GROUP BY
+  category
+ORDER BY
+  profit_margin_pct ASC;
+
+-- 11. Top 5 Customers by Sales
+SELECT
+  customer_name,
+  SUM(sales) AS total_sales
+FROM
+  orders
+GROUP BY
+  customer_name
+ORDER BY
+  total_sales DESC
+LIMIT
+  5;
