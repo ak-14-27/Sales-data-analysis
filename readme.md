@@ -156,5 +156,4 @@ By combining SQL-based analysis with Excel dashboards, the project simulates a r
 
 ## 🚀 Author
 
-Amit Kumar  
-Aspiring Data Analyst
+Anurag Kumar 
